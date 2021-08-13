@@ -29,3 +29,14 @@ class Section(models.Model):
     @admin.display(boolean=True, ordering='parent')
     def is_top_section(self) -> bool:
         return not self.parent
+
+
+class Topic(models.Model):
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, null=False, blank=False, related_name='topics')
+    author = models.ForeignKey('users.User', on_delete=models.CASCADE, null=False, blank=False, related_name='topics')
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_closed = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        return self.name
