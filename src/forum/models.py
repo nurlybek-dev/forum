@@ -40,3 +40,10 @@ class Topic(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class Message(models.Model):
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=False, blank=False, related_name='messages')
+    author = models.ForeignKey('users.User', on_delete=models.CASCADE, null=False, blank=False, related_name='messages')
+    text = models.TextField(blank=False, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)

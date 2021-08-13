@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Section
+from .models import Section, Topic, Message
 
 class SectionInline(admin.TabularInline):
     model = Section
@@ -18,3 +18,7 @@ class SectionAdmin(admin.ModelAdmin):
     inlines = (
         SectionInline,
     )
+
+
+admin.site.register(Topic)
+admin.site.register(Message)
