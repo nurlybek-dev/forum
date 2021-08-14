@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>{{ section.name }}</h1>
+
+
+<ul>
+{% for child in section.children.all %}
+    <li><a href="{{ child.get_absolute_url }}">{{ child.name }}</a></li>
+{% endfor %}
+
+{% for topic in section.topics.all %}
+    <li><a href="{{ topic.get_absolute_url }}">{{ topic.name }}</a></li>
+{% endfor %}
+
+</ul>
+
+
+
+{% endblock content %}

@@ -1,22 +1,7 @@
 from django.contrib import admin
 from django.db import models
-
-
-"""
-Сообщение:
-    Пользователь
-    Тело сообщений
-    Дата
-
-Тема:
-    Название темы
-    Создатель
-    Дата
-
-Раздел:
-    Родительский раздел
-    Название
-"""
+from django.urls import reverse
+from django.conf import settings
 
 
 class Section(models.Model):
@@ -26,6 +11,9 @@ class Section(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("section", kwargs={"pk": self.pk})
+    
     @admin.display(boolean=True, ordering='parent')
     def is_top_section(self) -> bool:
         return not self.parent
@@ -33,7 +21,7 @@ class Section(models.Model):
 
 class Topic(models.Model):
     section = models.ForeignKey(Section, on_delete=models.CASCADE, null=False, blank=False, related_name='topics')
-    author = models.ForeignKey('users.User', on_delete=models.CASCADE, null=False, blank=False, related_name='topics')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, blank=False, related_name='topics')
     name = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     is_closed = models.BooleanField(default=False)
@@ -41,9 +29,12 @@ class Topic(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("topic", kwargs={"pk": self.pk})
+
 
 class Message(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=False, blank=False, related_name='messages')
-    author = models.ForeignKey('users.User', on_delete=models.CASCADE, null=False, blank=False, related_name='messages')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, blank=False, related_name='messages')
     text = models.TextField(blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
