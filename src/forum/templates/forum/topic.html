@@ -12,8 +12,8 @@
 {% endfor %}
 
 {% if user.is_authenticated %}
-    {{ form.non_field_errors }}
-    <form method="post">
+    <form action="{% url 'message-create' topic=topic.pk %}" method="post">
+        {{ form.non_field_errors }}
         {% csrf_token %}
         {{form.as_p}}
         <button type="submit">Send</button>

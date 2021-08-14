@@ -4,6 +4,9 @@
 
 <h1>{{ section.name }}</h1>
 
+{% if not section.is_top_section %}
+<a href="{% url 'topic-create' section=section.pk %}">Create topic</a>
+{% endif %}
 
 <ul>
 {% for child in section.children.all %}
@@ -15,7 +18,5 @@
 {% endfor %}
 
 </ul>
-
-
 
 {% endblock content %}

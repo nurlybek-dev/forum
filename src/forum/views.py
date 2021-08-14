@@ -1,9 +1,10 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
-from forum.forms import MessageForm
+from forum.forms import MessageForm, TopicForm
 
-from .models import Message, Section, Topic
+from .models import Section, Topic
 
 
 def index(request):
@@ -16,6 +17,7 @@ def index(request):
 
 def section(request, pk):
     section = Section.objects.get(pk=pk)
+
     context = {
         'section': section
     }
@@ -24,7 +26,17 @@ def section(request, pk):
 
 def topic(request, pk):
     topic = Topic.objects.get(pk=pk)
+    form = MessageForm()
+    context = {
+        'topic': topic,
+        'form': form
+    }
+    return render(request, 'forum/topic.html', context=context)
 
+
+@login_required
+def message_create(request, topic):
+    topic = Topic.objects.get(pk=topic)
     if request.method == 'POST':
         form = MessageForm(request.POST)
         if form.is_valid():
@@ -32,12 +44,28 @@ def topic(request, pk):
             instance.topic = topic
             instance.author = request.user
             instance.save()
-            return redirect(reverse('topic', kwargs={'pk': pk}))
-        
+    
+    return redirect(reverse('topic', kwargs={'pk': topic.pk}))
+
+
+@login_required
+def topic_create(request, section):
+    section = Section.objects.get(pk=section)
+
+    if section.is_top_section():
+        return redirect(reverse('section', kwargs={'pk': section.pk}))
+
+    if request.method == 'POST':
+        form = TopicForm(request.POST)
+        if form.is_valid():
+            instance = form.save(section, request.user)
+            return redirect(reverse('topic', kwargs={'pk': instance.pk}))
     else:
-        form = MessageForm()
+        form = TopicForm()
+
     context = {
-        'topic': topic,
+        'section': section,
         'form': form
     }
-    return render(request, 'forum/topic.html', context=context)
+
+    return render(request, 'forum/topic_create.html', context=context)
