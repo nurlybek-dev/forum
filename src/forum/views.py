@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse
 
-from .models import Section, Topic
+from forum.forms import MessageForm
+
+from .models import Message, Section, Topic
 
 
 def index(request):
@@ -21,7 +24,20 @@ def section(request, pk):
 
 def topic(request, pk):
     topic = Topic.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.topic = topic
+            instance.author = request.user
+            instance.save()
+            return redirect(reverse('topic', kwargs={'pk': pk}))
+        
+    else:
+        form = MessageForm()
     context = {
-        'topic': topic
+        'topic': topic,
+        'form': form
     }
     return render(request, 'forum/topic.html', context=context)

@@ -4,7 +4,6 @@
 
 <h1>{{ topic.name }}</h1>
 
-
 {% for message in topic.messages.all %}
     <div>
         <div>{{ message.author.username }} - {{ message.created_at }}</div>
@@ -12,7 +11,15 @@
     </div>
 {% endfor %}
 
-
-
+{% if user.is_authenticated %}
+    {{ form.non_field_errors }}
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Send</button>
+    </form>
+{% else %}
+    <div>Авторизуйтесь что бы написать сообщение</div>
+{% endif %}
 
 {% endblock content %}
