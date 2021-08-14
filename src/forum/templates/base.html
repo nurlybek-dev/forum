@@ -20,15 +20,7 @@
     </header>
 
     <main>
-    {% block breadcrumbs %}
-        <span><a href="{% url 'index' %}">Форум</a> > </span>
-        {% if section %}
-            {{ section|breadcrumbs }}
-        {% elif topic %}
-            {{ topic.section|breadcrumbs }}
-        {% endif %}
-    {% endblock breadcrumbs %}
-
+    {% breadcrumbs %}
     {% block content %}
     {% endblock content %}
     </main>
