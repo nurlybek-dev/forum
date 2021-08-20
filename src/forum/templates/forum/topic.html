@@ -2,24 +2,38 @@
 
 {% block content %}
 
+<div class="topic">
+
 <h1>{{ topic.name }}</h1>
 
 {% for message in topic.messages.all %}
-    <div>
-        <div>{{ message.author.username }} - {{ message.created_at }}</div>
-        <div>{{ message.text }}</div>
+    <div class="message">
+        <div class="message-head">
+            <div>{{ message.author.username }} - <small>{{ message.created_at }}</small></div>
+        </div>
+        <div class="message-body">
+            <div>{{ message.text }}</div>
+        </div>
     </div>
 {% endfor %}
 
 {% if user.is_authenticated %}
+    <h4>Ответить</h4>
     <form action="{% url 'message-create' topic=topic.pk %}" method="post">
         {{ form.non_field_errors }}
         {% csrf_token %}
-        {{form.as_p}}
+        <div class="form-field">
+            {{form.text}}
+            <div class="errors">{{form.text.errors}}</div>
+        </div>
         <button type="submit">Send</button>
     </form>
 {% else %}
     <div>Авторизуйтесь что бы написать сообщение</div>
 {% endif %}
+
+</div>
+
+
 
 {% endblock content %}

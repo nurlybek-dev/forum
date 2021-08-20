@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#breadcrumbs {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: aqua;
+}
+
+header a {
+    margin-right: 10px;
+}
+
+header a.title {
+    font-size: 24px;
+}
+
+.sections {
+    list-style: none;
+}
+
+.section {
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.section-head {
+    background-color: aqua;
+    padding: 5px;
+}
+
+.section .sections {
+    padding: 10px;
+}
+
+.create-topic {
+    margin-bottom: 5px;
+}
+
+.topic h1 {
+    margin-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+
+.message {
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.message-head {
+    background-color: aqua;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.message-body {
+    padding: 10px;
+}
+
+.form-field {
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 5px;
+}
+
+form button[type="submit"] {    
+    padding: 5px 10px;
+}
+
+.form-field .errors .errorlist {
+    list-style: none;
+    color: red;
+    font-style: italic;
+}

@@ -2,21 +2,25 @@
 
 {% block content %}
 
-<h1>{{ section.name }}</h1>
-
 {% if not section.is_top_section %}
-<a href="{% url 'topic-create' section=section.pk %}">Create topic</a>
+<div class="create-topic">
+    <a href="{% url 'topic-create' section=section.pk %}">Create topic</a>
+</div>
 {% endif %}
 
-<ul>
-{% for child in section.children.all %}
-    <li><a href="{{ child.get_absolute_url }}">{{ child.name }}</a></li>
-{% endfor %}
+<div class="section">
+    <div class="section-head">
+        <a href="{{ section.get_absolute_url }}">{{ section.name }}</a>
+    </div>
+    <ul class="sections">
+        {% for child in section.children.all %}
+            <li><a href="{{ child.get_absolute_url }}">{{ child.name }}</a></li>
+        {% endfor %}
 
-{% for topic in section.topics.all %}
-    <li><a href="{{ topic.get_absolute_url }}">{{ topic.name }}</a></li>
-{% endfor %}
-
-</ul>
+        {% for topic in section.topics.all %}
+            <li><a href="{{ topic.get_absolute_url }}">{{ topic.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
 
 {% endblock content %}
