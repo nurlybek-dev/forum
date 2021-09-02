@@ -1,0 +1,26 @@
+{% if section.children.count %}
+<div class="section">
+    <div class="section-head">
+        <div class="section-info">Подразделы</div>
+        <div class="section-messages">Тем</div>
+        <div class="section-last-message">Последнее сообщение</div>
+    </div>
+    
+    <div class="sections">
+        {% for child in section.children.all %}
+        <div class="section-row">
+            <div class="section-info">
+                <a href="{{ child.get_absolute_url }}">{{ child.name }}</a>
+            </div>
+            <div class="section-topics">{{ child.topics.count }}</div>
+            <div class="section-last-message">
+                <a href="{{ child.get_last_message.topic.get_absolute_url }}">{{ child.get_last_message.topic.name }}</a>
+                <div>{{ child.get_last_message.author.username }}</div>
+                <div>{{ child.get_last_message.created_at }}</div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

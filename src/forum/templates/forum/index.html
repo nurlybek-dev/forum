@@ -5,16 +5,7 @@
 <ul class="sections">
 {% for section in sections %}
 <li>
-    <div class="section">
-        <div class="section-head">
-            <a href="{{ section.get_absolute_url }}">{{ section.name }}</a>
-        </div>
-        <ul class="sections">
-        {% for child in section.children.all %}
-            <li><a href="{{ child.get_absolute_url }}">{{ child.name }}</a></li>
-        {% endfor %}
-        </ul>
-    </div>
+    {% include 'forum/_sections.html' with section=section is_top_section=True %}
 </li>
 {% endfor %}
 </ul>

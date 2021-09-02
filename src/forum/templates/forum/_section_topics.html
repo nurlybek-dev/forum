@@ -1,0 +1,25 @@
+{% if section.topics.count %}
+<div class="section">
+    <div class="section-head">
+        <div class="section-info">Темы</div>
+        <div class="section-messages">Ответов</div>
+        <div class="section-last-message">Последнее сообщение</div>
+    </div>
+    
+    <div class="topics">
+        {% for topic in section.topics.all %}
+        <div class="topic-row">
+            <div class="topic-info">
+                <a href="{{ topic.get_absolute_url }}">{{ topic.name }}</a>
+                <div>{{ topic.author.username }}, {{ topic.created_at }}</div>
+            </div>
+            <div class="topic-messages">{{ topic.messages.count }}</div>
+            <div class="topic-last-message">
+                <div>{{ topic.get_last_message.author.username }}</div>
+                <div>{{ topic.get_last_message.created_at }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

@@ -37,7 +37,7 @@ header a.title {
     font-size: 24px;
 }
 
-.sections {
+.sections, .topics {
     list-style: none;
 }
 
@@ -48,11 +48,48 @@ header a.title {
 
 .section-head {
     background-color: aqua;
-    padding: 5px;
+    padding: 10px;
 }
 
-.section .sections {
+.section-head,
+.section-row,
+.topic-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.section-row {
     padding: 10px;
+    min-height: 80px;
+}
+
+.topic-row {
+    padding: 10px;
+    min-height: 60px;
+}
+
+.section-row:nth-child(even),
+.topic-row:nth-child(even) {
+    background-color: lightblue;
+}
+
+.section-head .section-info,
+.section-row .section-info,
+.topic-row .topic-info {
+    flex: 3;
+}
+
+.section-head .section-messages,
+.section-row .section-topics,
+.topic-row .topic-messages {
+    flex: 1;
+}
+
+.section-head .section-last-message,
+.section-row .section-last-message,
+.topic-row .topic-last-message {
+    flex: 1;
 }
 
 .create-topic {
