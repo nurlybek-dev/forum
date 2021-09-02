@@ -1,8 +1,8 @@
 from django.test import TestCase
 from django.template import Context, Template
+from users.models import User
 
-from forum.models import Section, Topic
-from forum.views import section
+from forum.models import Message, Section, Topic
 
 
 class SectionTest(TestCase):
@@ -15,6 +15,33 @@ class SectionTest(TestCase):
         top_section = Section(name="Top section")
         second_section = Section(name="Second section", parent=top_section)
         self.assertFalse(second_section.is_top_section())
+    
+    def test_get_last_message(self):
+        user = User.objects.create(username="user", email="user@email.com", password="testuser123")
+        section = Section.objects.create(name="Section")
+        topic = Topic.objects.create(name="Topic", section=section, author=user)
+        message = Message.objects.create(topic=topic, author=user, text="Text")
+        self.assertEqual(section.get_last_message(), message)
+        self.assertEqual(section.get_last_message().topic, topic)
+    
+    def test_get_empty_last_message(self):
+        section = Section.objects.create(name="Section")
+        self.assertIsNone(section.get_last_message())
+
+
+class TopicTest(TestCase):
+    def test_get_last_message(self):
+        user = User.objects.create(username="user", email="user@email.com", password="testuser123")
+        section = Section.objects.create(name="Section")
+        topic = Topic.objects.create(name="Topic", section=section, author=user)
+        message = Message.objects.create(topic=topic, author=user, text="Text")
+        self.assertEqual(topic.get_last_message(), message)
+    
+    def test_get_empty_last_message(self):
+        user = User.objects.create(username="user", email="user@email.com", password="testuser123")
+        section = Section.objects.create(name="Section")
+        topic = Topic.objects.create(name="Topic", section=section, author=user)
+        self.assertIsNone(topic.get_last_message())
 
 
 class BreadcrumbsTemplateTagTest(TestCase):

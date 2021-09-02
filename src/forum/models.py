@@ -18,6 +18,9 @@ class Section(models.Model):
     def is_top_section(self) -> bool:
         return not self.parent
 
+    def get_last_message(self):
+        return Message.objects.filter(topic__in=self.topics.all()).order_by('-created_at').first()
+
 
 class Topic(models.Model):
     section = models.ForeignKey(Section, on_delete=models.CASCADE, null=False, blank=False, related_name='topics')
@@ -31,6 +34,9 @@ class Topic(models.Model):
 
     def get_absolute_url(self):
         return reverse("topic", kwargs={"pk": self.pk})
+
+    def get_last_message(self):
+        return self.messages.order_by('-created_at').first()
 
 
 class Message(models.Model):
