@@ -13,11 +13,12 @@
 {% if user.is_authenticated %}
     <h4>Ответить</h4>
     <form action="{% url 'message-create' topic=topic.pk %}" method="post">
+        {{ form.media }}
         {{ form.non_field_errors }}
         {% csrf_token %}
         <div class="form-field">
-            {{form.text}}
-            <div class="errors">{{form.text.errors}}</div>
+            {{ form.text }}
+            <div class="errors">{{ form.text.errors }}</div>
         </div>
         <button type="submit">Send</button>
     </form>

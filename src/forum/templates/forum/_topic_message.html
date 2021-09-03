@@ -9,7 +9,7 @@
             <div>Сообщений {{ message.author.messages.count }}</div>
         </div>
         <div class="message-body">
-            <div>{{ message.text }}</div>
+            <div>{{ message.text | safe }}</div>
         </div>
     </div>
 </div>

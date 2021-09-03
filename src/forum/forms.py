@@ -1,12 +1,13 @@
 from django import forms
 from django.db import transaction
+from ckeditor.widgets import CKEditorWidget
 
 from forum.models import Message, Topic
 
 
 class TopicForm(forms.Form):
     name = forms.CharField(max_length=255)
-    text = forms.CharField(widget=forms.Textarea)
+    text = forms.CharField(widget=CKEditorWidget())
 
     @transaction.atomic
     def save(self, section, author) -> Topic:
