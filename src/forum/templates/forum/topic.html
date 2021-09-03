@@ -7,14 +7,7 @@
 <h1>{{ topic.name }}</h1>
 
 {% for message in topic.messages.all %}
-    <div class="message">
-        <div class="message-head">
-            <div>{{ message.author.username }} - <small>{{ message.created_at }}</small></div>
-        </div>
-        <div class="message-body">
-            <div>{{ message.text }}</div>
-        </div>
-    </div>
+    {% include 'forum/_topic_message.html' with message=message %}
 {% endfor %}
 
 {% if user.is_authenticated %}

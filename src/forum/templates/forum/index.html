@@ -5,7 +5,7 @@
 <ul class="sections">
 {% for section in sections %}
 <li>
-    {% include 'forum/_sections.html' with section=section is_top_section=True %}
+    {% include 'forum/_section_subsections.html' with section=section is_top_section=True %}
 </li>
 {% endfor %}
 </ul>
