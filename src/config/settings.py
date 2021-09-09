@@ -41,6 +41,8 @@ INSTALLED_APPS = [
 
     'debug_toolbar',
 
+    'crispy_forms',
+
     'ckeditor',
     'ckeditor_uploader',
 
