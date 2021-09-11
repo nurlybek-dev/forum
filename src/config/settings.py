@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -46,6 +45,8 @@ INSTALLED_APPS = [
 
     'users.apps.UsersConfig',
     'forum.apps.ForumConfig',
+
+    'django.contrib.admin',
 ]
 
 MIDDLEWARE = [
@@ -145,6 +146,8 @@ AUTH_USER_MODEL = 'users.User'
 
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 INTERNAL_IPS = [
     '127.0.0.1',
