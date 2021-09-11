@@ -41,8 +41,6 @@ INSTALLED_APPS = [
 
     'debug_toolbar',
 
-    'crispy_forms',
-
     'ckeditor',
     'ckeditor_uploader',
 
@@ -154,8 +152,6 @@ INTERNAL_IPS = [
 
 CKEDITOR_BASEPATH =  '/static/ckeditor/ckeditor/'
 CKEDITOR_UPLOAD_PATH = "uploads/"
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 if DEBUG:
     import mimetypes

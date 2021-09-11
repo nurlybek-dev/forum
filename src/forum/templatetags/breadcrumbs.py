@@ -22,4 +22,4 @@ def breadcrumbs(context):
         section = section.parent
     sections.append(f'<span><a href="{index_url}">Форум</a></span>')
     sections.reverse()
-    return mark_safe(" > ".join(sections))
+    return mark_safe("".join(sections))

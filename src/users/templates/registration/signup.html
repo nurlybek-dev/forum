@@ -1,13 +1,17 @@
 {% extends "base.html" %}
 
-{% load crispy_forms_tags %}
+{% block breadcrumbs %}
+{{ block.super }}
+<span>Signup</span>
+{% endblock breadcrumbs %}
 
 {% block content %}
 
 <form method="post" action="{% url 'signup' %}">
     {% csrf_token %}
-    {{form|crispy}}
-    <button type="submit" class="btn btn-primary mt-1">Sign up</button>    
+    {{ form }}
+    <br>
+    <button type="submit">Sign up</button>    
 </form>
 
 {% endblock %}

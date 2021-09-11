@@ -19,6 +19,14 @@ body {
     margin-bottom: 5px;
 }
 
+#breadcrumbs span::after {
+    content: " / ";
+}
+
+#breadcrumbs span:last-of-type:after {
+    content: "";
+}
+
 header {
     display: flex;
     justify-content: space-between;
@@ -151,6 +159,7 @@ form textarea {
 
 form button[type="submit"] {    
     padding: 5px 10px;
+    margin-top: 5px;
 }
 
 .form-field .errors .errorlist {
