@@ -167,3 +167,32 @@ form button[type="submit"] {
     color: red;
     font-style: italic;
 }
+
+.profile {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-left {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.profile-left .profile-info {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.profile-info div {
+    margin-bottom: 10px;
+}
+
+.profile-info div h5 {
+    font-size: 16px;
+    background-color: aqua;
+}
+
+.profile-right {
+    flex: 4;
+}

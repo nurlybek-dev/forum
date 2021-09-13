@@ -4,7 +4,7 @@ from django.contrib.auth.views import (
     PasswordChangeView, PasswordChangeDoneView,
     PasswordResetView,PasswordResetDoneView, PasswordResetConfirmView,PasswordResetCompleteView,
 )
-from users.views import SignupView
+from users.views import ProfileView, SignupView
 
 app_name = 'users'
 urlpatterns = [
@@ -17,4 +17,6 @@ urlpatterns = [
     path('password_reset/done/', PasswordResetDoneView.as_view(), name="password_reset_done"),
     path('reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view( success_url='/accounts/reset/done/'), name="password_reset_confirm"),
     path('reset/done/', PasswordResetCompleteView.as_view(), name="password_reset_complete"),
+
+    path('profile/<int:pk>/', ProfileView.as_view(), name="profile"),
 ]
