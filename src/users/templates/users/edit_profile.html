@@ -3,7 +3,7 @@
 {% block content %}
 
 <div>
-    <a href="{% url 'profile' pk=user.pk %}">Cancel</a>
+    <a href="{% url 'accounts:profile' pk=user.pk %}">Cancel</a>
 </div>
 
 <form method="post">

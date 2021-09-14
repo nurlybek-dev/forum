@@ -4,14 +4,14 @@ from django.contrib.auth.views import (
     PasswordChangeView, PasswordChangeDoneView,
     PasswordResetView,PasswordResetDoneView, PasswordResetConfirmView,PasswordResetCompleteView,
 )
-from users.views import ProfileView, SignupView
+from users.views import EditProfileView, ProfileView, SignupView
 
 app_name = 'users'
 urlpatterns = [
     path('sign_up/', SignupView.as_view(), name='signup'),
     path('login/', LoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
-    path('password_change/', PasswordChangeView.as_view( success_url='accounts/password_change/done/'), name="password_change"),
+    path('password_change/', PasswordChangeView.as_view( success_url='/accounts/password_change/done/'), name="password_change"),
     path('password_change/done/', PasswordChangeDoneView.as_view(), name="password_change_done"),
     path('password_reset/', PasswordResetView.as_view(success_url='done/'), name="password_reset"),
     path('password_reset/done/', PasswordResetDoneView.as_view(), name="password_reset_done"),
@@ -19,4 +19,5 @@ urlpatterns = [
     path('reset/done/', PasswordResetCompleteView.as_view(), name="password_reset_complete"),
 
     path('profile/<int:pk>/', ProfileView.as_view(), name="profile"),
+    path('profile/<int:pk>/edit/', EditProfileView.as_view(), name="edit-profile"),
 ]

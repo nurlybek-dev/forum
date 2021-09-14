@@ -1,10 +1,9 @@
-from django.contrib.auth.forms import PasswordChangeForm
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
-from django.views.generic import DetailView
+from django.views.generic import DetailView, UpdateView
 
 from .models import User
-from .forms import UserChangeForm, UserCreationForm
+from .forms import EditProfileForm, UserCreationForm
 
 
 class SignupView(FormView):
@@ -23,11 +22,15 @@ class ProfileView(DetailView):
     context_object_name = 'profile'
 
 
-class EditProfileView(FormView):
-    form_class = UserChangeForm
+class EditProfileView(UpdateView):
+    model = User
+    form_class = EditProfileForm
     template_name = 'users/edit_profile.html'
     context_object_name = 'profile'
 
-    def form_valid(self, form: UserChangeForm):
+    def form_valid(self, form: EditProfileForm):
         form.save()
         return super().form_valid(form)
+
+    def get_success_url(self) -> str:
+        return reverse_lazy('accounts:profile', kwargs={'pk': self.kwargs['pk']})
